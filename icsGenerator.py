@@ -7,28 +7,39 @@ import pandas as pd
 
 #Take in filenames containing tables of parsed syllabus information
 #and return .ics file containing calendar with all events scheduled.
-#Fs = str(sys.argv)
+
+Fs = str(sys.argv)
 
 #Maintain list for each data column
-#cName = ["Assignment #1", "A2"]
-#cWeight = ["75%", "12%"]
-#cDate = ["20180201 00:00:00", "2018-02-04"]
+#cName = []
+#cWeight = []
+#cDate = []
 
 #For testing
 cName = ["Assignment #1", "A2"]
-cWeight = ["75%", "12%"]
-cDate = ["20180201 00:00:00", "2018-02-04"]
-
+cDate = ["20180201 00:00:00", "02-04"]
 
 #Read in file data containing events
+#Each file will contain a list of tuples of Name, Date,
+#and possibly some string informaiton relating ot the deadline
+#Each file will carry with it term start date
+
+def parseFile(f):
+    #first line is course start date
+    #second line holds a list of tuples (name,date)
+
 ##for f in Fs:
     #Helper for file type parsing
+
+    #Take earliest date in schedule
+    #Take latest date in schedule
+    #
+
     #Append appropriate data to each column list
     #Parse dates to "YYYY-MM-DD" format
 
 #Build dataframe with events for calendar
 d = {"name" : cName,
-     "weight" : cWeight,
      "date" : cDate}
 
 df = pd.DataFrame(d)
@@ -36,7 +47,6 @@ df = pd.DataFrame(d)
 #Helper to apply event to a row
 def rowToEvent(row):
     return (ics.event.Event(name=row["name"],
-            description=row["weight"],
             begin=row["date"]))
 
 #.make_all_day() as a non-transormative funcation
