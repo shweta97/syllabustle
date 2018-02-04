@@ -8,35 +8,43 @@ import pandas as pd
 #Take in filenames containing tables of parsed syllabus information
 #and return .ics file containing calendar with all events scheduled.
 
-Fs = str(sys.argv)
+inputFile = str(sys.argv)
 
-#Maintain list for each data column
-#cName = []
-#cWeight = []
-#cDate = []
-
-#For testing
-cName = ["Assignment #1", "A2"]
-cDate = ["20180201 00:00:00", "02-04"]
+#df column building
+cStart = []
+cName = []
+cDate = []
 
 #Read in file data containing events
-#Each file will contain a list of tuples of Name, Date,
-#and possibly some string informaiton relating ot the deadline
-#Each file will carry with it term start date
+#Each file will contain a set of pairs of lines
+#such that each pair represents a schedule.
+#The first line of the pair is the term start date
+#the second is a list of tuples of (Name, Date)
 
 def parseFile(f):
-    #first line is course start date
-    #second line holds a list of tuples (name,date)
+    with open(f, 'r') as file:
+        allSchedules = f.readlines()
+    f.close()
+    #even indices of allSchedules are start dates
+    #odd indices are lists of deadlines.
+    #for each deadline, fill dataframe with corresponding
+    #startDate, Name, and Date.
+    i = 0
+    while i < len(allSchedules):
+        for d in allSchedules[i+1]:
+            cStart.append(allSchedules[i])
+            cName.append(d[0])
+            cDate.append(d[1])
+        i += 2
 
-##for f in Fs:
-    #Helper for file type parsing
+#parse user input
+parseFile(inputFile)
 
-    #Take earliest date in schedule
-    #Take latest date in schedule
-    #
-
-    #Append appropriate data to each column list
-    #Parse dates to "YYYY-MM-DD" format
+#parse dates in cDate to "YYYY-MM-DD" format
+#Dateparser applies current year to dates
+#when year value is missing - correct for
+#courses that span over two years
+#(where dateParsed < startDate for the term)
 
 #Build dataframe with events for calendar
 d = {"name" : cName,
