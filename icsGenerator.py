@@ -3,7 +3,7 @@ import dateparser
 import pandas as pd
 import datetime
 
-def generaceics():
+def generateics():
     #Take in filenames containing tables of parsed syllabus information
     #and return .ics file containing calendar with all events scheduled.
 
