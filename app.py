@@ -65,4 +65,4 @@ def hello():
     return "Successfully converted {} pdf(s)!".format(count)
 
 if __name__ == '__main__':
-    app.run(debug=True, host='127.0.0.1', port=5043)
+    app.run(host='https://stark-waters-86085.herokuapp.com/')
