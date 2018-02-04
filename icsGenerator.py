@@ -2,6 +2,7 @@ import ics
 import dateparser
 import pandas as pd
 import datetime
+import datefinder
 
 
 #Take in filenames containing tables of parsed syllabus information
@@ -59,9 +60,10 @@ def incrementDay(moment):
 #fill cEDate prior to indexing
 cEDate = cSDate[:]
 
-for i in range(len(cSDate)):
-    cSDate[i] = dateparser.parse(cSDate[i])
-    cStart[i] = dateparser.parse(cStart[i])
+i=0
+while i in range(len(cSDate)):
+    cSDate[i] = list(datefinder.find_dates(cSDate[i]))[0]
+    cStart[i] = list(datefinder.find_dates(cStart[i]))[0]
     #if not possible to parse the record, remove it
     if (cSDate[i] is None) or (cName[i] is None):
         del cCourse[i]
@@ -71,6 +73,7 @@ for i in range(len(cSDate)):
         del cEDate[i]
     elif cSDate[i] < cStart[i]:
         cSDate[i] = incrementYear(cSDate[i])
+    i += 1
     #cEDate[i] = incrementDay(cSDate[i])
 
 #Build dataframe with events for calendar
@@ -96,7 +99,7 @@ def retAllDay(event):
 cal["event"] = cal.apply(rowToEvent, axis=1)
 
 #Make all deadlines all day events; appear at top of calendar
-cal["event"] = cal["event"].apply(retAllDay)
+#cal["event"] = cal["event"].apply(retAllDay)
 
 #Create calendar
 C = ics.Calendar(events = list(cal["event"]))
