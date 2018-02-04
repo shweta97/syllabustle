@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title> SyllaBustle </title>
+  <!-- fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Lora:700" rel="stylesheet">
+  <!-- end of fonts -->
+  <link rel="stylesheet" type="text/css" href="syllabustle.css">
+  <!-- Latest compiled and minified CSS -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+
+<body>
+  <nav>
+    <ul>
+      <li class="left"> SyllaBustle </li>
+      <li> Student Name </li>
+    </ul>
+
+  </br>
+
+<div class="boxes">
+
+
+  <div class="left-content">
+    <div class="calendar">
+      <iframe src="https://calendar.google.com/calendar/embed?height=600&amp;wkst=1&amp;bgcolor=%23FFFFFF&amp;src=u9oairah81oh3o9d21ptf9dlhk%40group.calendar.google.com&amp;color=%232F6309&amp;ctz=America%2FToronto" style="border-width:0" width="800" height="600" frameborder="0" scrolling="no" ></iframe>
+    </div>
+  </div>
+
+  <div class="right-content">
+    <div class="syllabus">
+      <p> Add your syllabus:
+        <form action="https://stark-waters-86085.herokuapp.com/convert" method="post">
+        Course 1: <input class="form-control" type="text" name="name1" value="" placeholder="Course Name">
+        <input class="form-control" type="text" name="course1" value="" placeholder="URL">
+        <div class="row">
+          <div class="col-xs-6">
+            <select name="month1">
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <select name="year1">
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+        </div>
+        Course 2: <input class="form-control" type="text" name="name2" value="" placeholder="Course Name">
+        <input class="form-control" type="text" name="course2" value="" placeholder="URL">
+        <div class="row">
+          <div class="col-xs-6">
+            <select name="month2">
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <select name="year2">
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+        </div>
+        Course 3: <input class="form-control" type="text" name="name3" value="" placeholder="Course Name">
+        <input class="form-control" type="text" name="course3" value="" placeholder="URL">
+        <div class="row">
+          <div class="col-xs-6">
+            <select name="month3">
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <select name="year3">
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+        </div>
+        Course 4: <input class="form-control" type="text" name="name4" value="" placeholder="Course Name">
+        <input class="form-control" type="text" name="course4" value="" placeholder="URL">
+        <div class="row">
+          <div class="col-xs-6">
+            <select name="month4">
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <select name="year4">
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+        </div>
+        Course 5: <input class="form-control" type="text" name="name5" value="" placeholder="Course Name">
+        <input class="form-control" type="text" name="course5" value="" placeholder="URL">
+        <div class="row">
+          <div class="col-xs-6">
+            <select name="month5">
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <select name="year5">
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+        </div>
+        Course 6: <input class="form-control" type="text" name="name6" value="" placeholder="Course Name">
+        <input class="form-control" type="text" name="course6" value="" placeholder="URL">
+        <div class="row">
+          <div class="col-xs-6">
+            <select name="month6">
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <select name="year6">
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+        </div>
+        Course 7: <input class="form-control" type="text" name="name7" value="" placeholder="Course Name">
+        <input class="form-control" type="text" name="course7" value="" placeholder="URL">
+        <div class="row">
+          <div class="col-xs-6">
+            <select name="month7">
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <select name="year7">
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+        </div>
+        Course 8: <input class="form-control" type="text" name="name8" value="" placeholder="Course Name">
+        <input class="form-control" type="text" name="course8" value="" placeholder="URL">
+        <div class="row">
+          <div class="col-xs-6">
+            <select name="month8">
+              <option value="january">January</option>
+              <option value="february">February</option>
+              <option value="march">March</option>
+              <option value="april">April</option>
+              <option value="may">May</option>
+              <option value="june">June</option>
+              <option value="july">July</option>
+              <option value="august">August</option>
+              <option value="september">September</option>
+              <option value="october">October</option>
+              <option value="november">November</option>
+              <option value="december">December</option>
+            </select>
+          </div>
+          <div class="col-xs-6">
+            <select name="year8">
+              <option value="2017">2017</option>
+              <option value="2018">2018</option>
+              <option value="2019">2019</option>
+              <option value="2020">2020</option>
+            </select>
+          </div>
+        </div>
+        <br>
+        <input type="submit" value="Submit">
+        </form>
+
+      </p>
+
+    </div>
+
+<!-- Courses
+    <div class="courses">
+      <p> Upcoming Events </p>
+    </div>
+-->
+
+
+  </div>
+
+</div>
+
+
+</body>
+
+<footer>
+  <p> &copy; SyllaBustle </p>
+</footer>
+</html>

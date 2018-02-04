@@ -1,8 +1,8 @@
-Topic
-Item
-Homework
-Assignments
-Component
-Assignment
-Project
-Deliverable
+topic
+item
+homework
+assignments
+component
+assignment
+project
+deliverable
