@@ -60,9 +60,13 @@ def hello():
             if success:
                 count += 1
 
-
-    # generateics()
-    return "Successfully converted {} pdf(s)!".format(count)
+    generateics()
+    print("Successfully converted {} pdf(s)!".format(count), file=sys.stderr)
+    filename = 'icsGenerator.py'
+    new_page.html = '<a href= 'icsGenerator.py' download>'
+    return send_file(filename)
+    # f = open('deadlines.ics', 'r')
+    # return "Successfully converted {} pdf(s)!".format(count)
 
 if __name__ == '__main__':
     app.run(host='https://stark-waters-86085.herokuapp.com/')
