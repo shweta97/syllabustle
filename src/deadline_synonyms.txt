@@ -1,5 +1,5 @@
-Deadline
-Dead-line
-Dead line
-Date
-Due
+deadline
+dead-line
+dead line
+date
+due
