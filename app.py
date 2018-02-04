@@ -1,7 +1,7 @@
 from flask import Flask
-from flask import request
+from flask import request, render_template, url_for
 from src.html_to_table import HTMLTableParser
-# from src.icsgenerator import generateics
+from icsGenerator import generateics
 # from ics import Calendar
 # from urllib2 import urlopen
 import sys
@@ -10,6 +10,7 @@ app = Flask(__name__)
 
 @app.route('/convert', methods = ['POST'])
 def hello():
+    print(request, file=sys.stderr)
     print(request.form, file=sys.stderr)
     num = 8
     courses = []
@@ -60,13 +61,30 @@ def hello():
             if success:
                 count += 1
 
-    generateics()
     print("Successfully converted {} pdf(s)!".format(count), file=sys.stderr)
-    filename = 'icsGenerator.py'
-    # new_page.html = '<a href= 'icsGenerator.py' download>'
-    # return send_file(filename)
-    # f = open('deadlines.ics', 'r')
-    return "Successfully converted {} pdf(s)!".format(count)
+    generateics()
+
+    filename = 'deadlines.ics'
+    text = ''
+    with open(filename, 'r') as cal:
+        text = "<br />".join(cal.readlines())
+
+    f = open('templates/page.html','w')
+    url = url_for('static', filename=filename)
+    message = """<!DOCTYPE html>
+              <html>
+              <div>""" + text + """ </div>
+
+              </html>"""
+
+    # msg = <a href="""+url+"""> Download</a> </div>
+    f.write(message)
+    print("wrote", file=sys.stderr)
+    f.close()
+    print("rendering...", file=sys.stderr)
+
+    return render_template('page.html')
 
 if __name__ == '__main__':
     app.run(host='https://stark-waters-86085.herokuapp.com/')
+    # app.run(debug=True, host='localhost',port=4041)
