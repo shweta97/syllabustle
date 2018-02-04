@@ -1,19 +1,20 @@
-#!/usr/bin/python
-
-import sys
 import ics
 import dateparser
 import pandas as pd
+import datetime
+
 
 #Take in filenames containing tables of parsed syllabus information
 #and return .ics file containing calendar with all events scheduled.
 
-inputFile = str(sys.argv)
+#pick up input file from scr
+inputFile = "events.txt"
 
 #df column building
+cCourse = []
 cStart = []
 cName = []
-cDate = []
+cSDate = []
 
 #Read in file data containing events
 #Each file will contain a set of pairs of lines
@@ -23,39 +24,68 @@ cDate = []
 
 def parseFile(f):
     with open(f, 'r') as file:
-        allSchedules = f.readlines()
-    f.close()
+        allSchedules = file.readlines()
+    file.close()
+
     #even indices of allSchedules are start dates
     #odd indices are lists of deadlines.
     #for each deadline, fill dataframe with corresponding
     #startDate, Name, and Date.
-    i = 0
-    while i < len(allSchedules):
-        for d in allSchedules[i+1]:
-            cStart.append(allSchedules[i])
+
+    i=0
+    while i < len(allSchedules)-2:
+        for d in eval(allSchedules[i+2]):
+            cCourse.append(allSchedules[i].rstrip('\n'))
+            cStart.append(allSchedules[i+1].rstrip('\n'))
             cName.append(d[0])
-            cDate.append(d[1])
-        i += 2
+            cSDate.append(d[1])
+        i += 3
 
 #parse user input
 parseFile(inputFile)
 
-#parse dates in cDate to "YYYY-MM-DD" format
+#parse dates to "YYYY-MM-DD" format
 #Dateparser applies current year to dates
 #when year value is missing - correct for
 #courses that span over two years
 #(where dateParsed < startDate for the term)
 
-#Build dataframe with events for calendar
-d = {"name" : cName,
-     "date" : cDate}
+def incrementYear(wrongDate):
+    return wrongDate.replace(wrongDate.year + 1)
 
-df = pd.DataFrame(d)
+def incrementDay(moment):
+    return moment + datetime.timedelta(days=1)
+
+#fill cEDate prior to indexing
+cEDate = cSDate[:]
+
+for i in range(len(cSDate)):
+    cSDate[i] = dateparser.parse(cSDate[i])
+    cStart[i] = dateparser.parse(cStart[i])
+    #if not possible to parse the record, remove it
+    if (cSDate[i] is None) or (cName[i] is None):
+        del cCourse[i]
+        del cStart[i]
+        del cName[i]
+        del cSDate[i]
+        del cEDate[i]
+    elif cSDate[i] < cStart[i]:
+        cSDate[i] = incrementYear(cSDate[i])
+    #cEDate[i] = incrementDay(cSDate[i])
+
+#Build dataframe with events for calendar
+d = {"start" : cStart,
+     "name" : cName,
+     "sdate" : cSDate,
+     "edate" : cEDate}
+
+cal = pd.DataFrame(d)
 
 #Helper to apply event to a row
 def rowToEvent(row):
     return (ics.event.Event(name=row["name"],
-            begin=row["date"]))
+                            begin=row["sdate"],
+                            end=row["edate"]))
 
 #.make_all_day() as a non-transormative funcation
 def retAllDay(event):
@@ -63,13 +93,13 @@ def retAllDay(event):
     return event
 
 #Apply event creation to every event in dataframe and store in new col
-df["event"] = df.apply(rowToEvent, axis=1)
+cal["event"] = cal.apply(rowToEvent, axis=1)
 
 #Make all deadlines all day events; appear at top of calendar
-#df["event"] = df["event"].apply(retAllDay)
+cal["event"] = cal["event"].apply(retAllDay)
 
 #Create calendar
-C = ics.Calendar(events = list(df["event"]))
+C = ics.Calendar(events = list(cal["event"]))
 
 #Export build calendar
 with open('deadlines.ics', 'w') as file:
