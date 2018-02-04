@@ -7,28 +7,47 @@ import pandas as pd
 
 #Take in filenames containing tables of parsed syllabus information
 #and return .ics file containing calendar with all events scheduled.
-#Fs = str(sys.argv)
 
-#Maintain list for each data column
-#cName = ["Assignment #1", "A2"]
-#cWeight = ["75%", "12%"]
-#cDate = ["20180201 00:00:00", "2018-02-04"]
+inputFile = str(sys.argv)
 
-#For testing
-cName = ["Assignment #1", "A2"]
-cWeight = ["75%", "12%"]
-cDate = ["20180201 00:00:00", "2018-02-04"]
-
+#df column building
+cStart = []
+cName = []
+cDate = []
 
 #Read in file data containing events
-##for f in Fs:
-    #Helper for file type parsing
-    #Append appropriate data to each column list
-    #Parse dates to "YYYY-MM-DD" format
+#Each file will contain a set of pairs of lines
+#such that each pair represents a schedule.
+#The first line of the pair is the term start date
+#the second is a list of tuples of (Name, Date)
+
+def parseFile(f):
+    with open(f, 'r') as file:
+        allSchedules = f.readlines()
+    f.close()
+    #even indices of allSchedules are start dates
+    #odd indices are lists of deadlines.
+    #for each deadline, fill dataframe with corresponding
+    #startDate, Name, and Date.
+    i = 0
+    while i < len(allSchedules):
+        for d in allSchedules[i+1]:
+            cStart.append(allSchedules[i])
+            cName.append(d[0])
+            cDate.append(d[1])
+        i += 2
+
+#parse user input
+parseFile(inputFile)
+
+#parse dates in cDate to "YYYY-MM-DD" format
+#Dateparser applies current year to dates
+#when year value is missing - correct for
+#courses that span over two years
+#(where dateParsed < startDate for the term)
 
 #Build dataframe with events for calendar
 d = {"name" : cName,
-     "weight" : cWeight,
      "date" : cDate}
 
 df = pd.DataFrame(d)
@@ -36,7 +55,6 @@ df = pd.DataFrame(d)
 #Helper to apply event to a row
 def rowToEvent(row):
     return (ics.event.Event(name=row["name"],
-            description=row["weight"],
             begin=row["date"]))
 
 #.make_all_day() as a non-transormative funcation
