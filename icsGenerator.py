@@ -2,8 +2,6 @@ import ics
 import dateparser
 import pandas as pd
 import datetime
-import datefinder
-
 
 #Take in filenames containing tables of parsed syllabus information
 #and return .ics file containing calendar with all events scheduled.
@@ -62,8 +60,8 @@ cEDate = cSDate[:]
 
 i=0
 while i in range(len(cSDate)):
-    cSDate[i] = list(datefinder.find_dates(cSDate[i]))[0]
-    cStart[i] = list(datefinder.find_dates(cStart[i]))[0]
+    cSDate[i] = dateparser.parse(cSDate[i])
+    cStart[i] = dateparser.parse(cStart[i])
     #if not possible to parse the record, remove it
     if (cSDate[i] is None) or (cName[i] is None):
         del cCourse[i]
@@ -71,10 +69,14 @@ while i in range(len(cSDate)):
         del cName[i]
         del cSDate[i]
         del cEDate[i]
-    elif cSDate[i] < cStart[i]:
+        #if we enter this if we don't want to run
+        #the next as it may fall over non-datetime values
+        i -= 1
+    if cSDate[i] < cStart[i]:
         cSDate[i] = incrementYear(cSDate[i])
-    i += 1
     #cEDate[i] = incrementDay(cSDate[i])
+    i += 1
+
 
 #Build dataframe with events for calendar
 d = {"start" : cStart,
@@ -99,7 +101,7 @@ def retAllDay(event):
 cal["event"] = cal.apply(rowToEvent, axis=1)
 
 #Make all deadlines all day events; appear at top of calendar
-#cal["event"] = cal["event"].apply(retAllDay)
+cal["event"] = cal["event"].apply(retAllDay)
 
 #Create calendar
 C = ics.Calendar(events = list(cal["event"]))
