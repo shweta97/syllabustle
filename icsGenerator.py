@@ -89,24 +89,24 @@ cal = pd.DataFrame(d)
 #Helper to apply event to a row
 def rowToEvent(row):
     return (ics.event.Event(name=row["name"],
-                            begin=row["sdate"],
-                            end=row["edate"]))
-
-#.make_all_day() as a non-transormative funcation
-def retAllDay(event):
-    event.make_all_day()
-    return event
+                            begin=row["sdate"]))
 
 #Apply event creation to every event in dataframe and store in new col
 cal["event"] = cal.apply(rowToEvent, axis=1)
 
-#Make all deadlines all day events; appear at top of calendar
-cal["event"] = cal["event"].apply(retAllDay)
-
 #Create calendar
 C = ics.Calendar(events = list(cal["event"]))
 
+#Cheeky workaround the writelines error in
+#the source version of the ics package
+lCal = list(C)
+lCal = [("DTSTART;VALUE=DATE:" + x[8:16] + "\n") if (x in list(filter(lambda y: "DTSTART" in y, lCal)))
+        else x for x in lCal]
+
+
 #Export build calendar
 with open('deadlines.ics', 'w') as file:
-    file.writelines(C)
+    file.writelines(lCal)
 file.close()
+
+
