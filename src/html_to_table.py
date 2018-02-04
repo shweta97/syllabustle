@@ -90,7 +90,7 @@ def relevant_table(headers):
     for i in range(len(headers)):
         # found title
         for synonym in header:
-            if synonym in headers[i]:
+            if synonym in headers[i].casefold():
                 header_index = i
                 break
         if header_index != -1:
@@ -99,7 +99,7 @@ def relevant_table(headers):
     for i in range(len(headers)):
         # found due date
         for synonym in deadline:
-            if synonym in headers[i] and i != header_index:
+            if synonym in headers[i].casefold() and i != header_index:
                 if synonym != "Date" or synonym == headers[i]:
                     deadline_index = i
                     break

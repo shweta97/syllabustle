@@ -1,42 +1,42 @@
-Assignment
-Homework
-Home-work
-Home work
-A1
-A2
-A3
-A4
-A5
-A 1
-A 2
-A 3
-A 4
-A 5
-Midterm
-Test
-Exam
-Mid-term
-Final exam
-Final
-Quiz
-Exercise
-Ex1
-Ex2
-Ex3
-Ex4
-Ex5
-Ex6
-Ex7
-Ex8
-Ex9
-Ex10
-Ex 1
-Ex 2
-Ex 3
-Ex 4
-Ex 5
-Ex 6
-Ex 7
-Ex 8
-Ex 9
-Ex 10
+assignment
+homework
+home-work
+home work
+a1
+a2
+a3
+a4
+a5
+a 1
+a 2
+a 3
+a 4
+a 5
+midterm
+test
+exam
+mid-term
+final exam
+final
+quiz
+exercise
+ex1
+ex2
+ex3
+ex4
+ex5
+ex6
+ex7
+ex8
+ex9
+ex10
+ex 1
+ex 2
+ex 3
+ex 4
+ex 5
+ex 6
+ex 7
+ex 8
+ex 9
+ex 10
