@@ -28,10 +28,16 @@ li{
 li.left{
   float: left;
 }
-p{
-  font-size: 30px;
-  text-align: center;
+
+li.img{
+  padding:14px;
 }
+
+img{
+  height: 40px;
+  width: 40px;
+}
+
 
 /* divs */
 div.boxes{
